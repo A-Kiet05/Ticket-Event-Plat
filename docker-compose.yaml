@@ -1,0 +1,34 @@
+services:
+# our myworkbench sql database
+ db:
+  #using the lastest myworkbench image
+  image: mysql:latest
+  ports:
+     -"3306:3306"
+  restart: always
+  environment:
+       MYSQL_PASSWORD:123321
+
+#database management interface:
+ adminer:
+  image: adminer
+  restart: always
+  ports:
+   -8888:8080
+   
+#   keycloak:
+#     image: quay.io/keycloak/keycloak:latest
+#     ports:
+#       - "9090:8080"
+#     environment:
+#       KEYCLOAK_ADMIN: admin
+#       KEYCLOAK_ADMIN_PASSWORD: admin
+#     volumes:
+#       - keycloak_data:/opt/keycloak/data
+#     command: start-dev
+#       -start-dev
+#       - --db=dev-file
+
+# volumes:
+#   keycloak_data:
+#     driver: local
