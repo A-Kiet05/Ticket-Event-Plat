@@ -1,4 +1,4 @@
-package com.example.ticketEvent.domain;
+package com.example.ticketEvent.domain.entities;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

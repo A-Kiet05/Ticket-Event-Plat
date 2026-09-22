@@ -1,4 +1,4 @@
-package com.example.ticketEvent.domain;
+package com.example.ticketEvent.domain.entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
