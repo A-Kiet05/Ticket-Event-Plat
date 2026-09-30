@@ -3,6 +3,8 @@ package com.example.ticketEvent.service.imple;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -27,18 +29,21 @@ public class EventServiceImpl implements EventService {
         User organizer = userRepository.findById(organizerId).orElseThrow(()-> new UsernameNotFoundException
         ( String.format("User with the ID '%s' not found", organizerId)));
        
+        Event eventCreate = new Event();
+
        List<TicketType> ticketTypeCreatedList =  eventRequest.getTicketTypes().stream().map(ticketType-> {
             TicketType ticketTypeCreate = new TicketType();
             ticketTypeCreate.setName(ticketType.getName());
             ticketTypeCreate.setPrice(ticketType.getPrice());
             ticketTypeCreate.setTotalAvailable(ticketType.getTotalAvailable());
             ticketTypeCreate.setDescription(ticketType.getDescription());
+            ticketTypeCreate.setEvent(eventCreate);
             return ticketTypeCreate;
         }).toList();
         
         
         
-        Event eventCreate = new Event();
+        
         eventCreate.setName(eventRequest.getName());
         eventCreate.setOrganizer(organizer);
         eventCreate.setStart(eventRequest.getStart());
@@ -52,5 +57,16 @@ public class EventServiceImpl implements EventService {
         return eventRepository.save(eventCreate);
 
 
+    }
+
+    @Override 
+    public Page<Event> listEventByOrganizerId(UUID organizerId , Pageable pageable){
+
+        return eventRepository.findByOrganizerId(organizerId , pageable);
+    }
+
+    @Override 
+    public <Optional> getEventById(UUID organizerId , UUID id){
+        return eventRepository.findByIdAndOrganizerId(id, organizerId);
     }
 }

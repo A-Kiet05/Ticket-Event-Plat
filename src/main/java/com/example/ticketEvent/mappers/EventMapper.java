@@ -9,6 +9,7 @@ import com.example.ticketEvent.domain.dto.CreateEventRequestDTO;
 import com.example.ticketEvent.domain.dto.CreateEventResponseDTO;
 import com.example.ticketEvent.domain.dto.CreateTicketTypeRequestDTO;
 import com.example.ticketEvent.domain.dto.CreateTicketTypeResponseDTO;
+import com.example.ticketEvent.domain.dto.*;
 import com.example.ticketEvent.domain.entities.Event;
 import com.example.ticketEvent.domain.entities.TicketType;
 
@@ -21,5 +22,11 @@ public interface EventMapper {
 
     CreateEventResponseDTO toDto(Event event);
 
-    // CreateTicketTypeResponseDTO toDto(TicketType ticketType);
+    ListEventTicketTypeResponseDTO toDto(TicketType ticketType);
+     
+    ListEventResponseDTO toListEventDto(Event event);
+    
+    EventTicketTypesDetailsResponseDTO toEventTicketTypesDetailsResponseDto(TicketType ticketType);
+
+    EventDetailsResponseDTO toEventDetailsResponseDto(Event event);
 }

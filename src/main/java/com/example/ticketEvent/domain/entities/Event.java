@@ -45,7 +45,7 @@ public class Event {
     @Column (name = "name" , nullable = false)
     private String name;
     
-
+    
     
     @Column(name = "start_date" , nullable = false)
     private LocalDateTime start;

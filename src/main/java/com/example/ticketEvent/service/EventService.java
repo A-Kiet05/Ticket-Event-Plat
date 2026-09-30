@@ -2,10 +2,15 @@ package com.example.ticketEvent.service;
 
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.example.ticketEvent.domain.CreateEventRequest;
 import com.example.ticketEvent.domain.entities.Event;
 
 public interface EventService {
     
     Event createEvent(UUID organizerId ,CreateEventRequest eventRequest);
+    Page<Event> listEventByOrganizerId(UUID organizerId , Pageable pageable);
+    Optional<Event> getEventById(UUID organizerId , UUID id);
 }

@@ -35,13 +35,41 @@ public class EventController {
       @AuthenticationPrincipal Jwt jwt,
       @Valid @RequestBody CreateEventRequestDTO createEventRequestDto) {
             CreateEventRequest createEventRequest = eventMapper.fromDto(createEventRequestDto);
-            UUID userId = UUID.fromString(jwt.getSubject());
+            UUID userId = parseId(jwt);
 
             Event createdEvent = eventService.createEvent(userId, createEventRequest);
             CreateEventResponseDTO createEventResponseDto = eventMapper.toDto(createdEvent);
             return new ResponseEntity<>(createEventResponseDto, HttpStatus.CREATED);
       }
-      
+
+   @GetMapping
+   public ResponseEntity<ListEventResponseDTO> getEvent(
+
+      @AuthenticationPrincipal Jwt jwt,
+      Pageable pageable 
+   ){
+          UUID organizerId = parseId(jwt);
+          Pageable<Event> events = eventService.listEventByOrganizerId(organizerId , pageable);
+          return ResponseEntity.ok(events.map(eventMapper::toListEventDto));
+   }
+
+   @GetMapping(path = "/{eventId}")
+   public ResponseEntity<EventDetailsResponseDTO> getEventById(
+       @AuthenticationPrincipal Jwt jwt,
+       @PathVariable UUID eventId
+   ){
+        
+      UUID organizerId = parseId(jwt);
+      return eventService.getEventById(organizerId , eventId)
+      .map(eventMapper::toEventDetailsResponseDto)
+      .map(ResponseEntity.ok)
+      .orElse(ResponseEntity.notFound().build());
+   }
+
+   private UUID parseId (Jwt jwt){
+      return UUID.fromString(jwt.getSubject());
+   }
+
 
   
 }
