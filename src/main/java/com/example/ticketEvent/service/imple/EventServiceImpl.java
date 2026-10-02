@@ -117,4 +117,10 @@ public class EventServiceImpl implements EventService {
 
         return eventRepository.save(existingEvent);
     }
+
+    @Override 
+    public void deleteEventByOrganizer(UUID organizerId , UUID id){
+        
+        eventRepository.findByIdAndOrganizerId(id, organizerId).ifPresent(eventRepository::delete);
+    }
 }

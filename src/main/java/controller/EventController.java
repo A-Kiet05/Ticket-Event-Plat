@@ -66,6 +66,29 @@ public class EventController {
       .orElse(ResponseEntity.notFound().build());
    }
 
+   @PutMapping(path = "/{eventId}")
+   public ResponseEntity<UpdateEventResponseDTO> updateEvent(
+      @AuthenticationPrincipal Jwt jwt,
+      @PathVariable UUID eventId,
+      @Valid @RequestBody UpdateEventRequestDTO updateEventRequestDto
+   ){
+      UUID organizerId = parseId(jwt);
+      UpdateEventRequest updateEventRequest = eventMapper.fromDto(updateEventRequestDto);
+      Event updatedEvent = eventService.updateEventByOrganizer(organizerId , eventId , updateEventRequest);
+      UpdateEventResponseDTO updateEventResponseDto = eventMapper.toUpdateEventResponseDto(updatedEvent);
+      return ResponseEntity.ok(updateEventResponseDto);
+   }
+
+   @DeleteMapping(path = "/{eventId}")
+   public ResponseEntity<Void> deleteEvent(
+      @AuthenticationPrincipal Jwt jwt,
+      @PathVariable UUID eventId
+   ){
+      UUID organizerId = parseId(jwt);
+      eventService.deleteEventByOrganizer(organizerId , eventId);
+      return ResponseEntity.noContent().build();
+   }   
+
    private UUID parseId (Jwt jwt){
       return UUID.fromString(jwt.getSubject());
    }

@@ -14,13 +14,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateTicketTypeRequestDTO{
 
+   @Nonull(message = "Ticket type ID is required")
+   private UUID id;
+                
+  @NotBlank(message = "Ticket type name is required")
   private String name;
-
+  
+  @Nonnull(message = "Price is required")
   @PositiveOrZero(message = "Price must be zero or greater")
   private Double price;
 
   private String description;
 
   private Integer totalAvailable;
-  
+
 }
