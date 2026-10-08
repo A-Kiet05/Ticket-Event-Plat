@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface TicketRepository extends JpaRepository<Ticket , UUID> {
     
     
-    Integer countByTicketTypeId(@Param("id") UUID id);
+    Integer countByTicketTypeId( UUID ticketTypeId);
     Page<Ticket> findByUserId(UUID userId , Pageable pageable);
     Optional<Ticket> findById(UUID ticketId);
 }
