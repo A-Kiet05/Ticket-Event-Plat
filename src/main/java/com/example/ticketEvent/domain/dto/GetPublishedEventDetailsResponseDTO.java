@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data 
 @AllArgsConstructor 
 @NoArgsConstructor
-public class EventDetailsResponseDTO{
+public class GetPublishedEventDetailsResponseDTO{
 
     private UUID id;
     private String name;
@@ -19,6 +19,5 @@ public class EventDetailsResponseDTO{
     private LocalDateTime salesEnd;
     private EventStatus status;
     private List<EventTicketTypeDetailsResponseDTO> ticketTypes = new ArrayList<>();
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    
 }
