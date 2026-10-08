@@ -34,6 +34,7 @@ public class EventController {
   public ResponseEntity<CreateEventResponseDTO> createEvent(
       @AuthenticationPrincipal Jwt jwt,
       @Valid @RequestBody CreateEventRequestDTO createEventRequestDto) {
+         
             CreateEventRequest createEventRequest = eventMapper.fromDto(createEventRequestDto);
             UUID userId = parseId(jwt);
 
