@@ -17,7 +17,7 @@ public class TicketTypeController {
                                                     @AuthenticationPrincipal Jwt jwt) {
         
         UUID userId = JwtUtil.parseUserId(jwt);
-        Ticket purchasedTicket = ticketService.purchaseTicket(userId, ticketTypeId);
+        ticketTypeService.purchaseTicket(userId, ticketTypeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 } 
