@@ -15,12 +15,8 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public Page<Ticket> viewTickets(UUID userId, Pageable pageable) {
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException(
-                        String.format("User with ID %s was not found", userId)
-                ));
-
-        return ticketRepository.findByUserId(user.getId(), pageable);
+        
+        return ticketRepository.findByPurchaserId(userId , pageable);
     }
     
     @Override 
