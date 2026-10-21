@@ -1,8 +1,10 @@
 package com.example.ticketEvent.service.imple;
 
+import java.util.Base64;
 import java.util.UUID;
 
 import com.example.ticketEvent.domain.entities.QrCode;
+import com.example.ticketEvent.exceptions.QrCodeNotFoundException;
 
 @RequiredArgsConstructor
 @Service
@@ -55,5 +57,19 @@ public class QrCodeServiceImpl implements QrCodeService {
         }
     } 
 
-    
+    @Override 
+    public byte[] getQrCodeImageForTicketAndUser(UUID ticketId , UUID userId){
+
+        QrCode qrCode = qrCodeRepository.findByTicketIdAndTicketPurchaserId(ticketId , userId).
+        orElseThrow(QrCodeNotFoundException::new);
+
+        try{
+            return Base64.getDecoder().decode(qrCode.getValue());
+        }catch(IllegalArgumentException ex){
+             log.error("Invalid Base 64 qr code for ticketID :{}" , ticketId , ex);
+             throw new QrCodeNotFoundException();
+        }
+    }
+
+
 }
