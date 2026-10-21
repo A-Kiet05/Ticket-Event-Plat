@@ -12,5 +12,6 @@ public interface TicketRepository extends JpaRepository<Ticket , UUID> {
     Integer countByTicketTypeId( UUID ticketTypeId);
     Page<Ticket> findByPurchaserId(UUID purchaserId , Pageable pageable);
     Optional<Ticket> findById(UUID ticketId);
+    Optional<Ticket> findByIdAndPurchaserId(UUID ticketId , UUID purchaserId);
     
 }

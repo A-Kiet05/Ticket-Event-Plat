@@ -54,4 +54,6 @@ public class QrCodeServiceImpl implements QrCodeService {
       
         }
     } 
+
+    
 }

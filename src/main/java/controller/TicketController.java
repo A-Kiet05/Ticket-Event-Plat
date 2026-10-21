@@ -25,4 +25,13 @@ public class TicketController{
         return ticketService.viewTickets(parseUserId(jwt) , pageable).map(ticketMapper::toListTicketResponseDTO);
     }
 
+    @GetMapping(path="{ticketId")
+    public ResponseEntity<GetTicketResponseDTO> getTicketForUser(@AuthenticationPrincipal Jwt jwt , @PathVariable UUID ticketId){
+
+        return ticketService.getTicketForUser(parseUserId(jwt)  , ticketId)
+               .map(ticketMapper::toGetTicketResponseDTO)
+               .map(ResponseEntity::ok)
+               .orElse( ResponseEntity.notFound().build());
+    }
+
 }

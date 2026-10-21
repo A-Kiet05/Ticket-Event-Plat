@@ -23,5 +23,10 @@ public class TicketServiceImpl implements TicketService {
     public Optional<Ticket> getTicketById(UUID ticketId) {
         return ticketRepository.findById(ticketId);
     }
+
+    @Override
+    public Optional<Ticket> getTicketForUser(UUID ticketId , UUID userId){
+        return ticketRepository.findByIdAndPurchaserId(ticketId , userId);
+    }
     
 }

@@ -5,5 +5,5 @@ import com.example.ticketEvent.domain.entities.QrCode;
 public interface QrCodeService {
 
     QrCode generateQrCode(Ticket ticket);
-    
+    byte[] getQrCodeImageForTicketAndUser(UUID ticketId , UUID userId);
 }
