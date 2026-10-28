@@ -48,7 +48,8 @@ public class TicketController{
        
        return ResponseEntity.ok()
               .headers(headers)
-              .build();
+              .body(qrCodeImage);
+             
     }
 
 }

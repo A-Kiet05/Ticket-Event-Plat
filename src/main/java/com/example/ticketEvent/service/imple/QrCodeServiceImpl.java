@@ -8,6 +8,7 @@ import com.example.ticketEvent.exceptions.QrCodeNotFoundException;
 
 @RequiredArgsConstructor
 @Service
+@Sl4f
 public class QrCodeServiceImpl implements QrCodeService {
 
     private final QrCodeWriter qrCodeWriter;
@@ -66,6 +67,7 @@ public class QrCodeServiceImpl implements QrCodeService {
         try{
             return Base64.getDecoder().decode(qrCode.getValue());
         }catch(IllegalArgumentException ex){
+            
              log.error("Invalid Base 64 qr code for ticketID :{}" , ticketId , ex);
              throw new QrCodeNotFoundException();
         }

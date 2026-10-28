@@ -25,6 +25,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j 
 public class GlobalHandleException {
 
+    @ExceptionHandler (TicketNotFoundException.class)
+    public ResponseEntity<ErrorDTO> handleTicketNotFoundException(TicketNotFoundException ex){
+
+        log.error("Caught exception : " , ex);
+        ErrorDTO errorDto = new ErrorDTO();
+        errorDto.setError("Ticket not found! ");
+        return new ResponseEntity<>(errorDto , HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler (TicketSoldOutException.class)
     public ResponseEntity<ErrorDTO> handleTicketSoldOutException(TicketSoldOutException ex){
 
