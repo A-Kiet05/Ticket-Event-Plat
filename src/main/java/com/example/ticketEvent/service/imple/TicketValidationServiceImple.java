@@ -35,7 +35,7 @@ public class TicketValidationServiceImple implements TicketValidationService{
                       (String.format("Qr Code with the ID '%s' not found", qrCodeId)));
                 
         Ticket ticket = qrCode.getTicket();
-        return validate(ticket);
+        return validate(ticket , TicketValidationMethod.QR_CODE);
 
     }
 
@@ -48,16 +48,16 @@ public class TicketValidationServiceImple implements TicketValidationService{
         .orElseThrow(()-> new QrCodeNotFoundException
                       (String.format("Ticket with the ID '%s' not found", ticketId)));
         
-        return validate(ticket) ;
+        return validate(ticket , TicketValidationMethod.MANUAL) ;
     }
 
-    private TicketValidation validate(Ticket ticket){
+    private TicketValidation validate(Ticket ticket , TicketValidationMethod status){
 
         TicketValidation ticketValidation = new TicketValidation();
         ticketValidation.setTicket(ticket);
-        ticketValidation.setValidationMethod(TicketValidationMethod.QR_CODE);
+        ticketValidation.setValidationMethod(status);
 
-        TicketValidaionStatus ticketValidationStatus =  ticket.getValidations().stream()
+        TicketValidationStatus ticketValidationStatus =  ticket.getValidations().stream()
         .filter( v -> TicketValidationStatus.VALID.equals(v.getStatus()) )
         .findFirst()
         .map(v-> TicketValidationStatus.INVALID)
