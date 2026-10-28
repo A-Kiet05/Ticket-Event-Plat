@@ -12,5 +12,7 @@ import lombok.NoArgsConstructor;
 
 public class TicketValidationRequestDTO{
     
-    
+   private UUID id; //either ticket or qr code id 
+   private TicketValidationMethod validationMethod;
+
 }
